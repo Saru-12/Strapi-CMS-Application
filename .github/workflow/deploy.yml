@@ -16,13 +16,14 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '14'
+        node-version: '18' # Update to a compatible Node.js version
 
     - name: Install dependencies
       run: yarn install
 
     - name: Build project
-      run: yarn build
+      run: |
+        yarn build || { echo "Build failed"; exit 1; }
 
     - name: Deploy to EC2
       env:
