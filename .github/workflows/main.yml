@@ -18,8 +18,13 @@ jobs:
       with:
         node-version: '18' # Update to a compatible Node.js version
 
+    - name: Clear Yarn cache
+      run: yarn cache clean
+
     - name: Install dependencies
-      run: yarn install
+      run: |
+        rm -rf node_modules
+        yarn install
 
     - name: Build project
       run: |
@@ -40,3 +45,4 @@ jobs:
           yarn build
           pm2 restart all || pm2 start yarn --name strapi -- start
         EOF
+
